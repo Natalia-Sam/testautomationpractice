@@ -5,7 +5,7 @@
 
 3. Create locators and tests of TestAutomationPracticePage.ts
 
-# https://testautomationpractice.blogspot.com/ 
+# https://testautomationpractice.blogspot.com/
 
 4. work only with GUI Elements each element should have test
    (skip for the next lesson Date Picker: (Select a Date Range))
