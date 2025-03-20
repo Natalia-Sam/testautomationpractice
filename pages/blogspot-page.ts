@@ -34,7 +34,7 @@ export default class BlogspotPage {
   }
 
   public async enterAddress(address: string) {
-    await this.phoneInput.fill(address);
+    await this.addressInput.fill(address);
   }
 
   public async selectMaleGender() {
