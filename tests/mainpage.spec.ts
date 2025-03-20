@@ -51,6 +51,11 @@ test.describe("Open main page", () => {
     await expect(blogspotPage.maleSelector).toBeChecked;
     await expect(blogspotPage.femaleSelector).not.toBeChecked;
   });
-  
 
+  test("Select female gender", async ({ page, blogspotPage }) => {
+    await blogspotPage.selectFemaleGender();
+    await expect(blogspotPage.femaleSelector).toBeChecked;
+    await expect(blogspotPage.maleSelector).not.toBeChecked;
+  });
+  
 });
