@@ -1,4 +1,5 @@
 import { type Page, type Locator } from "@playwright/test";
+import { Country } from "../data/countries";
 
 export default class BlogspotPage {
   readonly page: Page;
@@ -169,8 +170,14 @@ export default class BlogspotPage {
     await this.countryDropdown.click();
   }
 
-  public async selectBrazilCountryDropdown() {
-    await this.brazilOption.click();
+  public async selectCountry(country: string) {
+    // this.page.locator("//option[@value='brazil']");
+    // await this.page.selectOption("#country", "Brazil");
+    // await this.page.selectOption("#country", `${country}`);
+    await this.page.selectOption("#country", country);
+    //await this.page.selectOption("#country", "Brazil");
+    // await this.page.locator('#country').selectOption('Brazil');
+    // await this.brazilOption.click();
   }
 
   public async selectCanadaCountryDropdown() {

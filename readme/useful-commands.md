@@ -3,6 +3,7 @@
 3. npx playwright test --project=chromium --headed --debug
 4. npx playwright test login.spec.js --project=chromium --headed --debug
 5. npx playwright show-report
+6. cmd+options+I - inspector
 
 npm install
 npm run format
