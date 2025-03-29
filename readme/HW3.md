@@ -15,7 +15,7 @@
 4. Locate the element containing "Welcome to Wikipedia" and check its text (innerText).
 
 # Test4: Wikipedia Search
-1. Enter "cay" in the search field.
+1. Enter "cat" in the search field.
 2. Click the search button.
 3. Verify that search results are displayed.
 4. Click on the first search result link.
