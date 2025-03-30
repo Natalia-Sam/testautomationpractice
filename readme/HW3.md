@@ -1,4 +1,4 @@
-### Upload Files
+### [Upload Files](https://playwright.dev/docs/input#upload-files)
 # Test1: Single File Upload
 1. Upload a file.
 2. Verify that the file was successfully uploaded.
@@ -7,7 +7,9 @@
 1. Upload multiple files.
 2. Verify that all files were successfully uploaded.
 
-### Tabs
+### Tabs 
+[bringToFront](https://playwright.dev/docs/api/class-page#page-bring-to-front)
+[on('page')](https://playwright.dev/docs/api/class-page#page-event-popup)
 # Test3: Wikipedia Tab Opening
 1. Click on "W".
 2. Verify that a new tab opens.
