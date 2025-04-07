@@ -24,24 +24,43 @@ test.describe("Open main page", () => {
 
   test("Search using Wikipedia input", async ({ page, tabComp, context }) => {
     await tabComp.searchWikipediaInput(value);
-    await page.keyboard.press('Enter');
+    await page.keyboard.press("Enter");
     // await tabComp.pressWikipediaSearchButton();
     const serchResalts = await tabComp.wikipediaSearchResult.all();
-    serchResalts.forEach(result => {
-      expect(result).toContainText(value, { ignoreCase: true });
-    });
+    // serchResalts.forEach(result => {
+    //   expect(result).toContainText(value, { ignoreCase: true });
+    // });
 
-    serchResalts[0].click();
-    page = await context.waitForEvent(`page`);
-    await page.bringToFront();
-    const pageUrl = page.url();
+    for (const result of serchResalts) {
+      await expect(result).toContainText(value, { ignoreCase: true });
+    }
+
+    await serchResalts[0].click();
+    const newPage = await context.waitForEvent(`page`);
+    await newPage.bringToFront();
+    const pageUrl = newPage.url();
     expect(pageUrl).toContain(`wikipedia.org/wiki`);
-    expect(page.locator('.mw-page-title-main')).toContainText(value, { ignoreCase: true });
+    // await expect(page.locator(".mw-page-title-main")).toContainText(value, {
+    //   ignoreCase: true,
+    // });
+    const pageTitle = newPage.locator(".mw-page-title-main");
+    await expect(pageTitle).toContainText(value, { ignoreCase: true });
   });
 
   // test.afterEach(async ({ context }) => {
   //   context.close();
   // });
+
+  test.afterEach(async ({ context }) => {
+    const pages = context.pages();
+    for (const page of pages) {
+      if (
+        !page.url().includes("https://testautomationpractice.blogspot.com/")
+      ) {
+        await page.close();
+      }
+    }
+  });
 
   // npx playwright test tests/tab-tests.spec.ts --ui
 });
