@@ -15,10 +15,14 @@ export default class DatePickerComp {
     this.datePicker1 = this.page.locator("#datepicker");
     // this.previousMonthArrow = this.page.locator("//span[@class='ui-icon ui-icon-circle-triangle-w']");
     // Пошук по класу:
-    this.previousMonthArrow = this.page.locator('.ui-icon.ui-icon-circle-triangle-w');
-    this.nextMonthArrow = this.page.locator("//span[@class='ui-icon ui-icon-circle-triangle-e']");
+    this.previousMonthArrow = this.page.locator(
+      ".ui-icon.ui-icon-circle-triangle-w",
+    );
+    this.nextMonthArrow = this.page.locator(
+      "//span[@class='ui-icon ui-icon-circle-triangle-e']",
+    );
     this.month = this.page.locator(".ui-datepicker-month");
-    this.date1 = this.page.getByRole('link', {name: '6'});
+    this.date1 = this.page.getByRole("link", { name: "6" });
   }
 
   public async openDatepicker1() {
@@ -53,10 +57,10 @@ export default class DatePickerComp {
     // console.log("get month ", createDate.getUTCMonth() + 1);
     console.log("utc month ", utcMonth);
     const day = date.getDay();
-      while(utcMonth !== Months[currentMonth]) {
-          this.nextMonthArrow.click();
-          currentMonth = await this.month.innerText();
-      }
-      await this.page.locator(`[data-date="${day}"]`).click();
+    while (utcMonth !== Months[currentMonth]) {
+      this.nextMonthArrow.click();
+      currentMonth = await this.month.innerText();
     }
+    await this.page.locator(`[data-date="${day}"]`).click();
+  }
 }
