@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import * as tseslint from 'typescript-eslint';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,17 +29,21 @@ export default [
         ],
     },
     ...compat.extends('eslint:recommended', 'plugin:prettier/recommended', 'prettier'),
+    // Add TypeScript support
+    ...tseslint.configs.recommended,
     {
         languageOptions: {
             globals: {
                 ...globals.browser,
                 ...globals.node,
             },
-
             ecmaVersion: 2020,
             sourceType: 'module',
+            parser: tseslint.parser,
+            parserOptions: {
+                project: './tsconfig.json',
+            },
         },
-
         rules: {
             'prettier/prettier': [
                 'error',
@@ -49,7 +54,8 @@ export default [
                     useTabs: false,
                 },
             ],
-
+            '@typescript-eslint/no-floating-promises': 'error',
+            '@typescript-eslint/await-thenable': 'error',
             'no-console': 'off',
             'no-unused-vars': [
                 'warn',
