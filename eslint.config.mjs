@@ -56,6 +56,7 @@ export default [
             ],
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/await-thenable': 'error',
+            '@typescript-eslint/no-explicit-any': 'off',
             'no-console': 'off',
             'no-unused-vars': [
                 'warn',

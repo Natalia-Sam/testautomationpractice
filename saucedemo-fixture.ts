@@ -1,10 +1,24 @@
-# Alerts & Popups
-[alert()confirm()prompt()dialogs](https://playwright.dev/docs/dialogs#alert-confirm-prompt-dialogs)
+import { test as base } from '@playwright/test';
+import BasePage from './saucedemo/pages/base-page';
+import LoginPage from './saucedemo/pages/login-page';
 
-# Drag and Drop
-[drag and drop](https://playwright.dev/docs/input#drag-and-drop)
+export type Custom = {
+    basePage: BasePage;
+    loginPage: LoginPage;
+};
 
-# test.step
+export const test = base.extend<Custom>({
+    /** @type { BasePage } */
+    basePage: async ({ page }, use) => {
+        await use(new BasePage(page));
+    },
+
+    /** @type { LoginPage } */
+    loginPage: async ({ page }, use) => {
+        await use(new LoginPage(page));
+    },
+});
+
 /**
  * Decorator function for wrapping POM methods in a test.step.
  * Use it without a step name `@step()`.
@@ -22,7 +36,3 @@ export function step(stepName?: string) {
         };
     };
 }
-
-# setup login
-[setup login](https://playwright.dev/docs/auth#basic-shared-account-in-all-tests)
-
