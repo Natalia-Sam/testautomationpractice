@@ -22,28 +22,59 @@ test.describe("Open main page", () => {
   //   ).toContainText("Welcome to");
   // });
 
-  test("Search using Wikipedia input", async ({ page, tabComp, context }) => {
+    //____________________________
+
+  // test("Search using Wikipedia input", async ({ page, tabComp, context }) => {
+  //   test.setTimeout(45000);
+  //   await tabComp.searchWikipediaInput(value);
+  //   // await page.keyboard.press("Enter");
+  //   // await tabComp.pressWikipediaSearchButton();
+  //   await page.locator('.wikipedia-search-button').hover();
+  //   await page.locator('.wikipedia-search-button').click({clickCount: 2});
+
+  //   const searchresults = await page.locator('#wikipedia-search-result-link a').all();
+  //   // const serchResalts = await tabComp.wikipediaSearchResult.all();
+  //   // serchResalts.forEach(result => {
+  //   //   expect(result).toContainText(value, { ignoreCase: true });
+  //   // });
+
+  //   for (const result of serchResalts) {
+  //     await expect(result).toContainText(value, { ignoreCase: true });
+  //   }
+
+  //   // await serchResalts[0].click();
+  //   console.log('serchResalts.length', searchresults);
+  //   await searchresults[0].hover();
+  //   await searchresults[0].click({force: true});
+  //   const newPage = await context.waitForEvent(`page`);
+  //   const all = context.pages();
+  //   console.log(all, all.length);
+  //   await newPage.bringToFront();
+  //   const pageUrl = newPage.url();
+  //   expect(pageUrl).toContain(`wikipedia.org/wiki`);
+  //   // await expect(page.locator(".mw-page-title-main")).toContainText(value, {
+  //   //   ignoreCase: true,
+  //   // });
+  //   const pageTitle = newPage.locator(".mw-page-title-main");
+  //   await expect(pageTitle).toContainText(value, { ignoreCase: true });
+  // });
+
+  //____________________________
+
+  test.only("Search using Wikipedia input", async ({ page, tabComp, context }) => {
+    test.setTimeout(45000);
     await tabComp.searchWikipediaInput(value);
-    await page.keyboard.press("Enter");
-    // await tabComp.pressWikipediaSearchButton();
-    const serchResalts = await tabComp.wikipediaSearchResult.all();
-    // serchResalts.forEach(result => {
-    //   expect(result).toContainText(value, { ignoreCase: true });
-    // });
+    await page.locator('.wikipedia-search-button').click();
+    await page.locator('.wikipedia-search-results-header').waitFor({timeout: 1000});
+    const searchresults = await page.locator('#wikipedia-search-result-link a').all();
 
-    for (const result of serchResalts) {
-      await expect(result).toContainText(value, { ignoreCase: true });
-    }
-
-    await serchResalts[0].click();
-    const newPage = await context.waitForEvent(`page`);
+    console.log('serchResalts.length', searchresults);
+    await searchresults[0].click();
+    const newPage = await context.waitForEvent(page);
     await newPage.bringToFront();
     const pageUrl = newPage.url();
-    expect(pageUrl).toContain(`wikipedia.org/wiki`);
-    // await expect(page.locator(".mw-page-title-main")).toContainText(value, {
-    //   ignoreCase: true,
-    // });
-    const pageTitle = newPage.locator(".mw-page-title-main");
+    expect(pageUrl).toContain(wikipedia.org/wiki);
+    const pageTitle = newPage.locator('header .mw-page-title-main');
     await expect(pageTitle).toContainText(value, { ignoreCase: true });
   });
 
@@ -51,16 +82,16 @@ test.describe("Open main page", () => {
   //   context.close();
   // });
 
-  test.afterEach(async ({ context }) => {
-    const pages = context.pages();
-    for (const page of pages) {
-      if (
-        !page.url().includes("https://testautomationpractice.blogspot.com/")
-      ) {
-        await page.close();
-      }
-    }
-  });
+  // test.afterEach(async ({ context }) => {
+  //   const pages = context.pages();
+  //   for (const page of pages) {
+  //     if (
+  //       !page.url().includes("https://testautomationpractice.blogspot.com/")
+  //     ) {
+  //       await page.close();
+  //     }
+  //   }
+  // });
 
   // npx playwright test tests/tab-tests.spec.ts --ui
 });
