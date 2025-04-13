@@ -66,7 +66,10 @@ test.describe("Open main page", () => {
     // tetsInfo.duration;
     // tetsInfo.status;
     console.log(tetsInfo);
-    await tabComp.searchWikipediaInput(value);
+    test.step('set value to search', async() => {
+      await tabComp.searchWikipediaInput(value);
+    })
+   
     await page.locator('.wikipedia-search-button').click();
     // await page.locator('.wikipedia-search-results-header').waitFor({timeout: 1000});
     // await page.locator('.wikipedia-search-results-header').waitFor();
