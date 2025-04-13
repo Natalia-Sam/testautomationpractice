@@ -1,6 +1,7 @@
 import { expect, type Page } from '@playwright/test';
 import BasePage from './base-page';
 import { step } from '../../saucedemo-fixture';
+import ShoppingCart from './shopping-card-page';
 
 export default class InventoryPage extends BasePage {
     private readonly path = 'inventory.html';
@@ -13,12 +14,13 @@ export default class InventoryPage extends BasePage {
     private readonly pageTitle = '.title';
     private readonly addToCard = 'Add to cart';
     private readonly shoppingCartBadge = '.shopping_cart_badge';
+    private readonly addToCardBtn = '#add-to-cart-sauce-labs-backpack';
 
     constructor(page: Page) {
         super(page);
     }
 
-    @step()
+    @step('Login my user')
     async isLoggedIn(): Promise<boolean> {
         const currentUrl = this.page.url();
         const isCorrectUrl = currentUrl.includes(this.path);
@@ -56,6 +58,7 @@ export default class InventoryPage extends BasePage {
         await this.page.click(this.shoppingCart);
     }
 
+    @step()
     async addToCartAllItems() {
         const allProductItems = await this.page.locator(this.productItems).all();
         for (const item of allProductItems) {
@@ -63,6 +66,7 @@ export default class InventoryPage extends BasePage {
         }
     }
 
+    @step()
     async removeFromCartAllItems() {
         const allProductItems = await this.page.locator(this.productItems).all();
         for (const item of allProductItems) {
@@ -70,6 +74,7 @@ export default class InventoryPage extends BasePage {
         }
     }
 
+    @step()
     async getShoppingCartBadgeItems(): Promise<number> {
         const count = await this.page.locator(this.shoppingCartBadge).innerText();
         return Number(count);
@@ -78,4 +83,19 @@ export default class InventoryPage extends BasePage {
     getShoppingCartBadge() {
         return this.page.locator(this.shoppingCartBadge);
     }
+
+    @step()
+    async addItemToCard() {
+        await this.page.click(this.addToCardBtn);
+    }
+
+    @step()
+    async openCard() {
+        await this.page.click(this.shoppingCart);
+        return new ShoppingCart(this.page);
+    }
+
+
+
+
 }

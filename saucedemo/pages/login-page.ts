@@ -33,6 +33,8 @@ export default class LoginPage extends BasePage {
 
     @step()
     async clickLoginButton(): Promise<void> {
+        // await this.page.locator(this.loginButton).click();
+        // await this.page.locator('#login-button').click();
         await this.page.click(this.loginButton);
     }
 
